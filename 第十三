@@ -1,0 +1,8 @@
+1、C#中的访问修饰符
+public:公开的
+private:私有的
+protected:受保护的
+internal:只能在当前项目中访问。在同一个项目中Internal和public的权限一样。
+protected internal:
+
+1)、能够修饰类的访问修饰符只有两个：public、internal
