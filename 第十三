@@ -2,7 +2,85 @@
 public:公开的
 private:私有的
 protected:受保护的
-internal:只能在当前项目中访问。在同一个项目中Internal和public的权限一样。
+internal:只能在当前项目中访问。但在同一个项目中internal和public的权限一样。
 protected internal:
 
 1)、能够修饰类的访问修饰符只有两个：public、internal
+2)、可访问性不一致。子类的访问权限不能高于父类的访问权限
+子类的访问权限高于父类的访问权限时会暴露父类的成员
+
+2)、设计模式
+设计这个项目的一种方式。
+简单工厂设计
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _03_简单工厂设计
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("请输入您想要的品牌");
+            string brand = Console.ReadLine();
+            NoteBook nb = GetNoteBook(brand);
+            nb.SayHello();
+            Console.ReadKey();
+        }
+        public static NoteBook GetNoteBook(string brand)
+        {
+            NoteBook nb = null;
+            switch (brand)
+            {
+                case "Lenovo":
+                    nb = new Lenovo();
+                    break;
+                case "IBM":
+                    nb = new IBM();
+                    break;
+                case "Acer":
+                    nb = new Acer();
+                    break;
+                case "Dell":
+                    nb = new Dell();
+                    break;
+            }
+            return nb;
+        }
+    }
+    public abstract class NoteBook
+    {
+        public abstract void SayHello();
+    }
+    public class Lenovo : NoteBook
+    {
+        public override void SayHello()
+        {
+            Console.WriteLine("我是联想笔记本");
+        }
+    }
+    public class IBM : NoteBook
+    {
+        public override void SayHello()
+        {
+            Console.WriteLine("我是IBM笔记本");
+        }
+    }
+    public class Acer : NoteBook
+    {
+        public override void SayHello()
+        {
+            Console.WriteLine("我是宏基笔记本");
+        }
+    }
+    public class Dell : NoteBook
+    {
+        public override void SayHello()
+        {
+            Console.WriteLine("我是戴尔笔记本");
+        }
+    }
+}
